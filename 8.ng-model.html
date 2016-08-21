@@ -2,22 +2,25 @@
 <html ng-app>
 <head>
 	<meta charset="utf-8">
-	<title>$scope</title>
+	<title>ng-model</title>
 	<script src="js/angular.min.js"></script>
 	<script>
-		// $scope 这个参数名称是不能修改的
+
+		// 这种模式就是 MVVM 中的 V ( View ) 影响到 -> M (model)
 		function Iceman($scope) {
 			$scope.name = "Iceman";
-			$scope.age = 40;
 		}
+
 	</script>
 </head>
 
 <body>
+
 <div ng-controller="Iceman">
-	<p>{{name}}</p>  <!-- Iceman -->
+	<!-- 数据绑定 -->
+	<input type="text" ng-model="name">
+	<p>{{name}}</p>
 </div>
-<!-- 并没有被解析出来，因为 $scope 其实就是作用域，只会在 Iceman 下起作用 -->
-<p>{{age}}</p>
+
 </body>
 </html>

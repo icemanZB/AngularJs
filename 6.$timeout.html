@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+	<meta charset="utf-8">
+	<title>$timeout</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		function Iceman($scope, $timeout) {
+			$scope.name = "Iceman";
+			// 双向数据绑定，$timeout 类似 setTimeout
+			// 必须要使用自带的服务才能自动刷新试图，实现双向数据绑定
+			$timeout(function () {
+				$scope.name="NewName";
+			},2000)
+		}
+
+
+	</script>
+</head>
+
+<body>
+
+<div ng-controller="Iceman">
+	<p>{{name}}</p>
+</div>
+
+</body>
+</html>
