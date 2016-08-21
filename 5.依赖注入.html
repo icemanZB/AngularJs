@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+	<meta charset="utf-8">
+	<title>依赖注入</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		// 参数名称不能被修改，这种参数一般叫做"服务"，都是以 "$" 开头的，并且实现一些特有的功能，来服务于实际开发
+		function Iceman($scope, $rootScope) {
+			$scope.name = "Iceman";
+			console.log($scope);
+		}
+
+
+	</script>
+</head>
+
+<body>
+<!-- 添加了 ng-controller 之后 Iceman 这个函数就会被执行，但是这里不能传参数，是通过 angular 内部进行参数处理后在执行的，这就是依赖注入 -->
+<div ng-controller="Iceman">
+	<p>{{name}}</p>  <!-- Iceman -->
+</div>
+
+</body>
+</html>

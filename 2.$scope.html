@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+	<meta charset="utf-8">
+	<title>$scope</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		// $scope 这个参数名称是不能修改的
+		function Hello($scope) {
+			$scope.name = "hello";
+			$scope.age = 40;
+		}
+	</script>
+</head>
+
+<body>
+<div ng-controller="Hello">
+	<p>{{name}}</p>  <!-- hello -->
+</div>
+<!-- 并没有被解析出来，因为 $scope 其实就是作用域，只会在 Hello 下起作用 -->
+<p>{{age}}</p>
+</body>
+</html>

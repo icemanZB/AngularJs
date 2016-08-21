@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+	<meta charset="utf-8">
+	<title>ng-controller</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		function Hello($scope) {
+			$scope.name = "hello";
+		}
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Hello">
+	<p>{{name}}</p>  <!-- hello -->
+	<p>{{"name"}}</p>  <!--  要输出 name 加个引号就可以了 {{"name"}} -->
+</div>
+
+</body>
+</html>

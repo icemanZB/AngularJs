@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+	<meta charset="utf-8">
+	<title>$scope作用域</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		/**
+		 * $scope 是局部作用域( 就近原则 )，先从内部作用域一步步往上找
+		 */
+		function Vicky($scope) {
+			$scope.name = "Vicky";
+			$scope.age = 27;
+		}
+		function Iceman($scope) {
+			$scope.name = "Iceman";
+			$scope.age = 28;
+		}
+
+		function Mike($scope) {
+			$scope.name = "Mike";
+			// $scope.age = 30;
+		}
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Vicky">
+	<p>{{name}}</p>  <!-- Vicky -->
+</div>
+<div ng-controller="Iceman">
+	<p>{{name}}</p>  <!-- Iceman -->
+</div>
+
+<div ng-controller="Iceman">
+	<p>{{name}}</p>
+	<div ng-controller="Mike">
+		<p>{{name}}</p>
+		<!-- 找到了内部属性，就是 30，没有的话继续往上找，就会找到 Iceman 对象中的 age，输出 28  -->
+		<p>{{age}}</p>
+	</div>
+</div>
+
+</body>
+</html>

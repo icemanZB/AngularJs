@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+	<meta charset="utf-8">
+	<title>$rootScope</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		/**
+		 * $rootScope 是全局作用域，是相对于整个页面的，并且 $rootScope 名称是不能被修改的
+		 */
+		function Vicky($scope, $rootScope) {
+			$scope.name = "Vicky";
+			$rootScope.age = 27;
+		}
+
+		function Iceman($scope) {
+			$scope.name = "Iceman";
+		}
+
+		function Mike($scope) {
+			// 先会去找区部作用域中的属性，如果找到就是用局部的属性，没有找到再去找全局的属性 ( 就近原则 )
+			$scope.age = 30;
+		}
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Vicky">
+	<p>{{name}}</p>  <!-- Vicky -->
+</div>
+<div ng-controller="Iceman">
+	<p>{{name}}</p>  <!-- Iceman -->
+	<p>{{age}}</p>  <!-- 27，获取的是 $rootScope 的值  -->
+</div>
+<div ng-controller="Mike">
+	<p>{{age}}</p>  <!-- 30 -->
+</div>
+</body>
+</html>
