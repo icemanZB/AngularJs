@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+	<meta charset=“utf-8">
+	<title>angular.bind()</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		// angular.bind("指向","对应的函数"); => 类似 jQuery 中的 $.proxy()，作用是改 this 指向
+
+		function show(n1, n2) {
+			console.log(n1);
+			console.log(n2);
+			console.log(this);
+		}
+
+		angular.bind(document, show, 3)(4);
+		// angular.bind(document, show, 3,4);
+
+	</script>
+</head>
+
+<body>
+
+
+</body>
+</html>

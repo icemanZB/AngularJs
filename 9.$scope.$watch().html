@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+	<meta charset="utf-8">
+	<title>$watch()</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		function Product($scope, $timeout) {
+			$scope.iphone = {
+				money: 5,
+				num  : 1,
+				fre  : 10
+			};
+			// 计算总价
+			$scope.sum = function () {
+				return $scope.iphone.money * $scope.iphone.num;
+			};
+			// $watch 是挂载在 $scope 下面的，是专门用来监听相关数据的变化
+			// 监听 money 注意写法是：iphone.money 不要加 $scope
+			$scope.$watch("iphone.money", function (newVal, oldVal) {
+				console.log("iphone.money" + newVal);
+				console.log("iphone.money" + oldVal);
+			});
+
+			// 第三个参数给 true 来监听整体( 深度监听 )
+			$scope.$watch("iphone", function (newVal, oldVal) {
+				console.log("iphone整体监听" + newVal);
+				console.log("iphone整体监听" + oldVal);
+			}, true);
+
+			// 监听函数：$scope.sum 不需要加引号，并且监听的是 sum() return 返回的值
+			$scope.$watch($scope.sum, function (newVal, oldVal) {
+				console.log("监听 sum 函数" + newVal);
+				console.log("监听 sum 函数" + oldVal);
+				// 高于 100 块免邮
+				$scope.iphone.fre = newVal >= 100 ? 0 : 10;
+			});
+
+		}
+
+	</script>
+</head>
+
+<body>
+
+<div ng-controller="Product">
+	<p>价格:<input type="text" ng-model="iphone.money"></p>
+
+	<p>个数:<input type="text" ng-model="iphone.num"></p>
+
+	<!-- currency 过滤器，货币格式化，":" 冒号的作用就是要写参数了 -->
+
+	<p>费用:<span>{{ sum() | currency:'￥' }}</span></p>
+
+	<p>运费:<span>{{iphone.fre | currency:'￥'}}</span></p>
+
+	<p>总额:<span>{{ sum() + iphone.fre | currency:'￥'}}</span></p>
+</div>
+
+</body>
+</html>

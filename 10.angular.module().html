@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<!-- 从哪一个模块开始初始化 -->
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>angular.module()</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		/**
+		 * var m1 = angular.module("myApp", []);
+		 * // 调用 但这种写法不支持 js 压缩
+		 * m1.controller("Iceman", function ($scope) {
+		 *     $scope.name = "hello";
+		 * });
+		 * m1.controller("Vicky", function ($scope) {
+		 *     $scope.name = "hi";
+		 * });
+		 */
+		// angular.module("模块的名称",["依赖的模块"]);
+		// module 定义模块 "myApp" 就是 <html> 上面的 value 值
+		var m1 = angular.module("myApp", []);
+		// 这种方式可以解决压缩的问题，并且 function($scope) 的 $scope 就可以随便用其他名字替换了
+		m1.controller("Iceman", ["$scope", function ($scope) {
+			$scope.name = "hello";
+		}]);
+
+		m1.controller("Vicky", ["$scope", function ($scope) {
+			$scope.name = "hi";
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Iceman">
+	<p>{{name}}</p>
+</div>
+<div ng-controller="Vicky">
+	<p>{{name}}</p>
+</div>
+
+</body>
+</html>
