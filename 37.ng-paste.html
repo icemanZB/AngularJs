@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-paste</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+		m1.controller("List", ["$scope", function ($scope) {
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<!--
+	在输入框中进行复制操作时触发 ng-copy
+	在输入框中进行剪切操作时触发 ng-cut
+	在输入框中进行粘贴操作时触发 ng-paste
+-->
+<div ng-controller="List">
+
+	<input type="text" value="aasdassssssss" ng-copy="aaa=true">{{aaa}}
+
+	<input type="text" value="aasdassssssss" ng-cut="bbb=true">{{bbb}}
+
+	<input type="text" value="aasdassssssss" ng-paste="ccc=true">{{ccc}}
+</div>
+
+</body>
+</html>

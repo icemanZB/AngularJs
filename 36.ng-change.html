@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-change</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+		m1.controller("List", ["$scope", function ($scope) {
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<!--
+	要触发 ng-change，必须同时写 ng-model
+-->
+<div ng-controller="List">
+
+	<input type="text" ng-change="bbb='hello'" ng-model="bbb">{{bbb}}
+
+</div>
+
+</body>
+</html>

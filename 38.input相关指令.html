@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>input相关指令</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+		m1.controller("Input", ["$scope", "$interval", function ($scope, $interval) {
+
+			var iNow = 5;
+			$scope.text = iNow + "秒";
+			$scope.isDisabled = true;
+
+			// setInterval 调用 $scope.$apply()，来实现数据动态显示，或者可以使用 $timeout、$interval 服务
+			var timer = $interval(function () {
+				iNow--;
+				$scope.text = iNow + "秒";
+
+				if (iNow == 0) {
+					// cancel 就是原生中的 clearInterval()，但是不能直接使用 clearInterval() 清除定时器
+					$interval.cancel(timer);
+					$scope.text = "可以点击啦";
+					$scope.isDisabled = false;
+				}
+
+			}, 1000);
+
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<!--
+	isDisabled 是个变量，对应 $scope.isDisabled
+	ng-value="text" ==> value ="{{text}}"，一般使用 ng-value
+-->
+<div ng-controller="Input">
+
+	<input type="button" ng-value="text" ng-disabled="isDisabled">
+
+	<!-- ng-readonly -->
+	<input type="text" value="{{text}}" ng-readonly="isDisabled">
+
+	<input type="checkbox" value="{{text}}" ng-checked="isDisabled">
+
+</div>
+
+</body>
+</html>

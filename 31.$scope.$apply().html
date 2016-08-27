@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app>
+<head lang="en">
+	<meta charset="UTF-8">
+	<title>$scope.apply</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		function Iceman($scope, $timeout) {
+			$scope.name = "Iceman";
+			// $timeout(function () {
+			//     $scope.name = "$timeout";
+			// }, 2000);
+			setTimeout(function () {
+				// $apply 监听数据是否有变化，有变化就会影响到试图
+				$scope.$apply(function () {
+					$scope.name = "Hello World";
+				});
+			}, 2000);
+		}
+	</script>
+</head>
+<body>
+
+<div ng-controller="Iceman">
+	<p>{{name}}</p>
+</div>
+</body>
+</html>

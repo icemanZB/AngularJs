@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-selected</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+		m1.controller("List", ["$scope", function ($scope) {
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="List">
+	<input type="checkbox" ng-model="aaa">
+	<select>
+		<option>11111</option>
+		<option ng-selected="aaa">22222</option>
+	</select>
+</div>
+
+</body>
+</html>

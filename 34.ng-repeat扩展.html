@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-repeat扩展</title>
+	<style>
+		.active { background-color: blue; }
+	</style>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+		m1.controller("List", ["$scope", function ($scope) {
+
+			$scope.dataList = [
+				"aaaaa", "bbbbb", "cccccc"
+			];
+
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<!--
+	$index 是 ng-repeat 的索引号
+	$first 只有第一项为 true，其他的所有项都返回 false => 与之对应的就是 $last
+	$middle 首尾返回 false，中间都返回 true
+	$even 奇数行返回 true => $odd 偶数行返回 true
+-->
+<div ng-controller="List">
+	<ul>
+		<li class="{{$even?'active':''}}" ng-repeat="data in dataList">{{ $index }}</li>
+	</ul>
+
+	<!-- 循环同辈的元素 -->
+	<div ng-repeat-start="data in dataList">{{data}}</div>
+	<p>{{data}}</p>
+	<div ng-repeat-end>{{data}}</div>
+
+</div>
+
+</body>
+</html>

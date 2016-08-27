@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<!-- 此时这里的 ng-app 就可以使用 angular.bootstrap() 代替 -->
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>angular.bootstrap()</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("Man", []);
+		var m2 = angular.module("Woman", []);
+		m1.controller("Iceman", ["$scope", function ($scope) {
+			$scope.name = "Iceman";
+		}]);
+		m2.controller("Vicky", ["$scope", function ($scope) {
+			$scope.name = "Vicky";
+		}]);
+
+		document.onclick = function () {
+			var aDiv = document.getElementsByTagName("div");
+			// 动态初始化 就是标签 html 的 ng-app 的功能
+			// angular.bootstrap(document, ["Man"]);  就是等于在页面上 <html ng-app="Man"></html>
+			angular.bootstrap(aDiv[0], ["Man"]);
+			angular.bootstrap(aDiv[1], ["Woman"]);
+
+		};
+
+	</script>
+</head>
+
+<body>
+<!-- 多个初始化，就只会针对一个，只输出 Iceman。
+	 如果需要多个初始化，必须使用 js 的方式，尽管并不是很常见
+-->
+<div ng-controller="Iceman">  <!-- <div ng-app="Iceman"></div> -->
+	<p>{{name}}</p>
+</div>
+<div ng-controller="Vicky">  <!-- <div ng-app="Vicky"></div> "Vicky" 不会输出 -->
+	<p>{{name}}</p>
+</div>
+
+点击页面查看效果
+</body>
+</html>

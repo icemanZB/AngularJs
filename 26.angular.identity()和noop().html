@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html ng-app>
+<head>
+	<meta charset="utf-8">
+	<title>identity()、noop()</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		// 这两个方法是用来默认值操作的
+		var str = "hello";
+		// 参数传递的是什么，最后就会返回什么
+		console.log(angular.identity(str));  // hello
+
+		// 空函数，返回 undefined
+		console.log(angular.noop());  // undefined
+
+		// 例如这样一个函数，如果传了 transformationFn 那就走前面的函数 transformationFn 没传，那么就走后面默认的函数返回 value
+		function transformer(transformationFn, value) {
+			return (transformationFn || angular.identity)(value);
+		}
+
+	</script>
+</head>
+
+<body>
+
+
+</body>
+</html>

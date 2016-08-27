@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+	<meta charset="UTF-8">
+	<title>过滤器</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		// 自定义过滤器：首字母大写过滤器
+		m1.filter("firstUpper", function () {
+			return function (str, num) {
+				console.log(num);
+				return str.charAt(0).toUpperCase() + str.substring(1);
+			}
+		});
+
+		// $filter 以服务的方式注入
+		m1.controller("FilterController", ["$scope", "$filter", function ($scope, $filter) {
+			$scope.price = "723894734.7489545";
+			$scope.str = "hello";
+			$scope.obj = {"name": "hello", "age": "20"};
+			$scope.arr = ["a", "b", "c"];
+			$scope.oDate = "3748935795";  // 这里是毫秒数
+			// 必须是这样的格式进行排序
+			$scope.aOrderBy = [
+				{color: "red", age: "20"},
+				{color: "yellow", age: "30"},
+				{color: "blue", age: "40"},
+				{color: "green", age: "10"}
+			];
+
+			// 转大写
+			$scope.hello = $filter("uppercase")("iceman");
+
+			$scope.num = $filter("number")("11122", 2);
+
+			// 调用自定义的首字母大写过滤器
+			$scope.name = $filter("firstUpper")("hello");
+
+		}]);
+	</script>
+</head>
+<body>
+<div ng-controller="FilterController">
+	<p>{{price | currency:"￥"}}货币</p>
+
+	<p>{{ price | number : 0 }}只有分隔符，没有货币符号，默认保留3位小数。0 就是不保留小数</p>
+
+	<p>{{ str | uppercase }}</p>
+
+	<p>{{ str | lowercase }}</p>
+	<pre>{{ obj | json }}有助于调试，放在 pre 标签中</pre>
+	<p>{{ str | limitTo : 2 }}截取字符串</p>
+
+	<p>{{ arr | limitTo : 2 }}数组截取</p>
+
+	<p>{{ oDate | date }} : "yyyy" 有很多参数，参考手册 </p>
+
+	<!-- 传了两个参数 -->
+	<p>{{ aOrderBy | orderBy : "age" : true }}针对数组排序，默认从小到大，设置 true 就是从打到小</p>
+
+	<p>{{ aOrderBy | filter : "l" }} 过滤数据，是针对 value 值，:true 完全匹配 </p>
+
+	<!-- 过滤器组合使用 -->
+	<p>{{ str | limitTo : 2 | uppercase }}</p>
+
+	<p>{{ hello }}利用 $filter 转大写</p>
+
+	<p>{{ num }}利用 $filter 转数字格式</p>
+
+	<p>{{ name | firstUpper : 2 }}</p>
+</div>
+</body>
+</html>
