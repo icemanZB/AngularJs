@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-init</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		m1.controller("InitData", ["$scope", function ($scope) {
+			// 这样设置更加好
+			// $scope.text="hello";
+		}]);
+
+		m1.controller("InitRepeat", ["$scope", function ($scope) {
+			$scope.arr = [["a", "b"], ["c", "d"]];
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+
+<!--
+	ng-init：初始化数据( 这样的方式不是很好 )，在 ng-repeat 中使用会方便点
+-->
+
+<div ng-controller="InitData" ng-init="text='hello'">
+	{{text}}
+</div>
+
+<div ng-controller="InitRepeat">
+	<div ng-repeat="arrOuter in arr" ng-init="outerIndex = $index">
+		<div ng-repeat="arrInner in arrOuter" ng-init="innerIndex = $index">
+			<!-- 打印下标 -->
+			<p>{{arrInner}}:{{outerIndex}}{{innerIndex}}</p>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

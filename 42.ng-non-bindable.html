@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-non-bindable</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		m1.controller("Bind", ["$scope", function ($scope) {
+			$scope.text = "<h1>hello</h1>";
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<!--
+	ng-non-bindable：不解析表达式
+-->
+<div ng-controller="Bind">
+	<div ng-non-bindable>{{text}}</div>
+</div>
+<script>
+	alert(1);
+</script>
+</body>
+</html>

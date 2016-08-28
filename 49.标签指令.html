@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>标签指令</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		m1.controller("TagController", ["$scope", function ($scope) {
+
+			$scope.colors = [
+				{name: "red"},
+				{name: "yellow"},
+				{name: "blue"}
+			];
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<!--
+	ng-app 加到 div 上面，现在只会针对 div 里面的内容起作用
+-->
+<div ng-app="myApp" ng-controller="TagController">
+	<!-- 此时 a 就是指令标签，会阻止默认行为 -->
+	<a href="">{{myColor.name}}</a>
+
+	<!--
+		ng-options 与 <select> 标签指令配合使用，并且一定要加上 ng-model
+		color.name：每一行当中相关的值，在去对应 color in colors
+	-->
+	<select ng-options="color.name for color in colors" ng-model="myColor">
+	</select>
+	<!--
+		标签指令重点是使用在表单验证当中
+		novalidate：这个属性就阻止了表单的默认行为，此时 email 的默认属性就没了
+	-->
+	<form novalidate>
+		<input type="email">
+	</form>
+</div>
+
+<!-- 这里是普通的 html 标签 -->
+<a href="">bbbbbbb</a>
+
+
+</body>
+</html>

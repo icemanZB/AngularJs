@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-bind-template</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+		m1.controller("Bind", ["$scope", function ($scope) {
+			$scope.text = "<h1>hello</h1>";
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<!--
+	ng-bind-template：提高页面显示友好，支持多个表达式，并且会把标签输出到页面上
+-->
+<div ng-controller="Bind">
+	<!-- <div>{{test}},{{test}}</div> -->
+	<div ng-bind-template="{{text}},{{text}}"></div>
+</div>
+<script>
+	alert(1);
+</script>
+</body>
+</html>

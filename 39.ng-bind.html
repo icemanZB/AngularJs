@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-bind</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+		m1.controller("Bind", ["$scope", function ($scope) {
+			$scope.text = "<h1>hello</h1>";
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<!--
+	ng-bind：提高页面显示友好，不在显示 {{text}} 表达式，不支持两个表达式，并且会把标签输出到页面上
+-->
+<div ng-controller="Bind">
+	<!-- <div>{{text}}</div> -->
+	<!-- <div>{{text}},{{text}}</div> -->
+	<div ng-bind="text"></div>
+
+	<!-- 另一种方式就是使用 ng-clock，他的原理是先是 display:none; 然后在表达式解析完毕就设置 display:block; -->
+	<div ng-cloak>{{text}}</div>
+</div>
+<script>
+	alert(1);
+</script>
+</body>
+</html>

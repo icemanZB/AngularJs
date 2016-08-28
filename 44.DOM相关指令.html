@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>DOM相关指令</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		m1.controller("DOMController", ["$scope", function ($scope) {
+			$scope.bBtn = true;
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="DOMController">
+	<input type="checkbox" ng-model="bBtn">
+	<!--
+		ng-show：显示隐藏，原理就是控制 display:none/block;
+		ng-hide：与 ng-show 相反的操作
+	-->
+	<div ng-show="bBtn">aaaaaaaaaaaa</div>
+
+	<!--
+		ng-if 作用与 ng-show 一样，但是原理并不是控制 display，而是直接对 DOM 节点添加删除的操作
+		ng-if="false" 的时候，就会删除标签
+	-->
+	<div ng-if="bBtn">aaaaaaaaaaaa</div>
+
+	<!--
+		ng-switch 与 on 是配对操作的
+		当 on="false"，那么就会走 ng-switch-when="false"
+	-->
+	<div ng-switch on="bBtn">
+		<p ng-switch-default>默认的效果</p>
+		<p ng-switch-when="false">切换的效果</p>
+	</div>
+
+	<!--
+	    ng-open 主要是针对 <details> 这样的一个标签，但是有兼容问题 FF都不支持，一般不用
+	-->
+	<details ng-open="bBtn">
+		<summary>Copyright 2011.</summary>
+		<p>All pages and graphics on this web site are the property of W3School.</p>
+	</details>
+
+</div>
+
+</body>
+</html>

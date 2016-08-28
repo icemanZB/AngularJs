@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-model-options</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		m1.controller("ModelOptions", ["$scope", function ($scope) {
+			$scope.text = "hello";
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+
+<!--
+	ng-model-options：选择不同的方式进行双向数据绑定，设置 updateOn 来控制，
+	{updateOn : 'blur'} 表示光标移开的时候进行数据更新
+-->
+<div ng-controller="ModelOptions">
+	<input type="text" ng-model="text" ng-model-options="{updateOn : 'blur'}">
+	<div>{{text}}</div>
+</div>
+
+
+</body>
+</html>

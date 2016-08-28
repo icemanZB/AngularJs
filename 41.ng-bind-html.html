@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-bind-html</title>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-sanitize.min.js"></script>
+	<script>
+		// 引用 sanitize 模块
+		var m1 = angular.module("myApp", ["ngSanitize"]);
+		m1.controller("Bind", ["$scope", function ($scope) {
+			$scope.text = "<h1>hello</h1>";
+		}]);
+
+
+	</script>
+</head>
+
+<body>
+<!--
+	ng-bind-html：并不是很常用，需要使用插件
+-->
+<div ng-controller="Bind">
+	<div ng-bind-html="text"></div>
+</div>
+<script>
+	alert(1);
+</script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ng-include</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		m1.controller("TemplateController", ["$scope", function ($scope) {
+
+		}]);
+
+
+
+
+	</script>
+</head>
+
+<body>
+
+<!--
+	ng-include： 引入一个模板，注意里面必须要加引号
+-->
+
+<div ng-controller="TemplateController" ng-include="'template/ul-list.html'">
+
+</div>
+
+
+</body>
+</html>
