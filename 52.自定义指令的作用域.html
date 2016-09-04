@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>自定义指令的作用域</title>
+	<style>
+		#div1 div { width: 200px; height: 200px; border: 1px red solid; display: none; }
+
+		#div1 input.active { background: red; }
+	</style>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp",[]);
+		m1.directive("myTab",function(){
+			return {
+				restrict : "E",
+				replace : true,
+				// 默认是 false，改成 true 后就是独立作用域了，收到外层作用域控制
+				// scope : true,
+				// 隔离作用域，不会受到外层 ng-controller 控制
+				scope : {
+					// 这三个符号就是绑定策略，绑定不同的数据
+					myId : '@',
+					myName : '=',
+					myFn : '&'
+				},
+				// 自定义指令内部的数据绑定的方式，这里面所对应的数据都是共享的
+				controller : ["$scope",function($scope){
+					$scope.name = "Vicky";
+				}],
+				templateUrl : "template/tab.html"
+			};
+		});
+
+		// 作用域是从内向外找，先找 ng-init，在找 $scope.name，并且默认情况下是共享作用域的
+		m1.controller("Iceman",["$scope",function($scope){
+			$scope.name = "Iceman";
+
+		}]);
+
+	</script>
+</head>
+
+<body ng-controller="Iceman">
+<my-tab></my-tab>
+<my-tab ng-init="name='h1'"></my-tab>
+
+
+</body>
+</html>

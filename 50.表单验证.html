@@ -2,9 +2,10 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>标签指令</title>
+	<title>表单验证</title>
 	<script src="js/angular.min.js"></script>
 	<style>
+		/* ng-valid、ng-invalid 是 css 样式 */
 		input.ng-valid { border: 1px green solid; background: green; }
 
 		input.ng-invalid { border: 1px red solid; background: red; }
@@ -30,7 +31,7 @@
 -->
 <div ng-app="myApp" ng-controller="FormController">
 	<form novalidate name="myForm">
-		<input type="text" name="myText" ng-model="text" required ng-minlength="5" ng-pattern="/^[a-zA-Z]+$/">
+		<input type="text" name="myText" ng-model="text" required ng-maxlength="10" ng-minlength="5" ng-pattern="/^[a-zA-Z]+$/">
 		<div>{{ myForm.myText.$valid }}</div>
 		<div>{{ myForm.myText.$invalid }}</div>
 		<div>{{ myForm.myText.$pristine }}</div>

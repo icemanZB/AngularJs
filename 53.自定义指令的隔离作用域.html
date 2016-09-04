@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>自定义指令的隔离作用域</title>
+	<style>
+		#div1 div, #div2 div { width: 200px; height: 200px; border: 1px red solid; display: none; }
+
+		#div1 input.active, #div2 input.active { background: red; }
+	</style>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+		m1.directive("myTab", function () {
+			return {
+				restrict   : "E",
+				replace    : true,
+				scope      : {
+					// 这三个符号就是绑定策略，绑定不同的数据
+					// "@"就是绑定的普通字符串
+					myId  : "@",  // 等同 myId :"@myId"、 "@aaa"
+					// "=" 是绑定的对应 $scope 值，解析的就是数据
+					myName: "=",
+					// 绑定父级函数，在模板中执行 ng-click ="myFn({nmu:123})" num 就是传的参数
+					myFn  : "&"
+				},
+				// 自定义指令内部的数据绑定的方式，这里面所对应的数据都是共享的
+				controller : ["$scope", function ($scope) {
+					$scope.name = "Vicky";
+				}],
+				templateUrl: "template/tab2.html"
+			};
+		});
+
+		// 作用域是从内向外找，先找 ng-init，在找 $scope.name，并且默认情况下是共享作用域的
+		m1.controller("Iceman", ["$scope", function ($scope) {
+			$scope.name = "Iceman";
+			$scope.show = function (n) {
+				alert(n);
+			};
+		}]);
+
+	</script>
+</head>
+
+<body ng-controller="Iceman">
+<!--
+	aaa="div1" => my-id ="div1" 会同样解析出 id="div1"
+    my-name="name"  name 指的就是绑定 $scope.name = "Vicky"
+    my-fn="show(num)" 这里并不是真正执行的，只是个绑定字符串
+ -->
+<my-tab my-id="div1" my-name="name" my-fn="show(num)"></my-tab>
+<my-tab my-id="div2" my-name="name" my-fn="show(num)"></my-tab>
+
+
+</body>
+</html>

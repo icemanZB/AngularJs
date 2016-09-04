@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>自定义指令之间的交互</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+		m1.directive("hello", function () {
+			return {
+				restrict  : "E",
+				replace   : true,
+				// 可以理解为指定 replace 的位置
+				transclude: true,
+				// 定义一些数据和方法，在子指令使用，一般是用在数据共享
+				controller: ["$scope", function ($scope) {
+					// $scope.name = "Iceman"; 这种添加方式只能在 hello 指令中找到
+					this.name = "Iceman";
+					this.show = function () {};
+				}],
+				// ng-transclude： 通过这个指令，把内部的东西放到 h1 中
+				template  : '<div>hello angular<h1 ng-transclude></h1></div>'
+			};
+		});
+
+		m1.directive("hi", function () {
+			return {
+				restrict: "E",
+				replace : true,
+				// 所要引入指令的名字，"^" 父级的身上找 hello 的指令，直接写名字的话就是在自身上找 hello 指令
+				// ? 是个容错的处理，如果没有找到不会报错
+				require : "?^hello",
+				template: '<span>hi angular</span>',
+				// link 就是 DOM 操作，一般是实现对内的一些功能
+				link    : function (scope, element, attr, reController) {
+					// 得到 hello 中的数据和方法
+					console.log(reController);
+				}
+			};
+		});
+
+		m1.controller("Iceman", ["$scope", function ($scope) {
+
+		}]);
+
+	</script>
+</head>
+
+<body ng-controller="Iceman">
+<hello>
+	<hi></hi>
+</hello>
+
+</body>
+</html>

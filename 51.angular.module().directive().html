@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>directive自定义指令</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp",[]);
+
+		// 自定义指令(名字,回掉)，名字尽量避开 ng-*，所以这里使用 my-Hello 对应 html 中的 my-hello
+		m1.directive("myHello",function(){
+			return {
+				/**
+				 * 指定指令的类型：
+				 * 1) "E" => element 指的就是标签指令
+				 * 2) "A" => attribute 对应属性指令
+				 * 3) "C" => class 对应 class 指令
+				 * 4) "M" => 注释写法
+				 */
+				restrict : "AECM",   // 区分大小写，而且是可以组合使用的
+				// 是配合注释指令，并且作用是把模板替换成所有指令
+				replace : true,
+				// 模板
+				template : '<div>hello angular</div>'
+			};
+		});
+
+		m1.directive("hello",function(){
+			return {
+				restrict : "E",
+				template : '<div>hello</div>'
+			};
+		});
+
+		m1.controller("Iceman",["$scope",function($scope){
+
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<!-- 标签的方式一般会重写以前的 html 标签的功能，或者以一个模板的代替方式进行交互 -->
+<my-hello></my-hello>
+<hello></hello>
+
+<!-- 指令一般是一种功能性的，比如 ng-click -->
+<p my-hello></p>
+
+<!-- 注释方式和class方式不常用 -->
+<p class="myHello"></p>
+<!-- 这里是注释写法，最后在 "-" 需要空一格 -->
+<!--
+ directive:my-hello -->
+
+<div ng-controller="Iceman">
+
+</div>
+
+
+</body>
+</html>
