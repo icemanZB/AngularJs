@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>$anchorScroll</title>
+	<style>
+		#parent div { width: 300px; height: 500px; border: 1px #000 solid; margin: 20px; }
+
+		#parent ul { width: 200px; position: fixed; top: 0; right: 0; }
+	</style>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		m1.controller("Location", ["$scope", "$location", "$anchorScroll", function ($scope, $location, $anchorScroll) {
+
+			$scope.change = function (id) {
+
+				// console.log(id);
+				// 设置 hash 值 进行锚点的跳转
+				//有点小问题的，如果先点击要某个 div 区域，在滚动到上方，在点击刚才的那个，他就不会在跳转了( 由于 hash 值没有改变是不会跳转的 )
+				$location.hash(id);
+				// 所以在手动执行下这个方法( 也可以判断下， hash 值相同的时候调用 )
+				$anchorScroll();
+
+			};
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+
+<div ng-controller="Location" id="parent">
+	<ul>
+		<li ng-repeat="id in [1,2,3,4,5]" ng-click="change('div'+id)">{{id}}aaaaaaaaaa</li>
+	</ul>
+	<div ng-repeat="id in [1,2,3,4,5]" ng-attr-id="div{{id}}">{{id}}</div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>百度搜索</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		m1.controller("Search", ["$scope", "$http", "$timeout", function ($scope, $http, $timeout) {
+			var timer = null;
+			$scope.data = [];
+
+			// 挂在了 change 方法
+			$scope.change = function (name) {
+
+				$timeout.cancel(timer);
+
+				// 提高性能，做了一个延迟的处理
+				timer = $timeout(function () {
+
+					$http({
+						method: "JSONP",
+						// angular 中的 JSON_CALLBACK 回掉函数的名字
+						url   : "https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd=" + name + "&cb=JSON_CALLBACK"
+					}).success(function (data) {
+						// console.log(data);
+						$scope.data = data.s;
+					});
+
+				}, 500);
+
+			};
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Search">
+	<input type="text" ng-model="name" ng-keyup="change(name)">
+	<input type="button" ng-click="change(name)" value="搜索">
+	<ul>
+		<li ng-repeat="d in data">{{d}}</li>
+	</ul>
+</div>
+
+</body>
+</html>

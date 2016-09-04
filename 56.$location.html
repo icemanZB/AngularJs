@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>$location</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		m1.controller("Location", ['$scope', '$location', function ($scope, $location) {
+
+			// var a = $location.absUrl(); // 网址信息的绝对地址(编码后的地址)
+			// var path = $location.path(); 方便路由的操作，即可获取也可设置
+			// 设置的时候会加上 #/aaa/bbb/ccc，并且就会有历史管理，方便用于单页面应用
+			// replace() 就会取消历史管理，一般用不上
+			$location.path("aaa/bbb/ccc").replace();
+			// 设置 hash 值
+			$location.hash("hello");
+			// 设置 "?" 后面的值
+			$location.search({"age": "20"});
+
+			// 路径 + search() + hash
+			console.log($location.url());
+			// 主机名
+			console.log($location.host());
+			// 端口
+			console.log($location.port());
+			// 协议
+			console.log($location.protocol());
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+
+<div ng-controller="Location">
+
+</div>
+
+</body>
+</html>

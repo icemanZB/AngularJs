@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>$interpolate()</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		// $interpolate() 插值服务
+		m1.controller("InterController", ["$scope", "$interpolate", function ($scope, $interpolate) {
+
+			$scope.$watch("body", function (newBody) {
+
+				if (newBody) {
+					var temp = $interpolate(newBody);
+					$scope.showText = temp({name: $scope.name});
+
+				}
+
+			});
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+
+<div ng-controller="InterController">
+	<input type="text" ng-model="name">
+	<!-- 插值的操作，在 textarea 中如果输入 {{name}}，也能显示 input 中的数据 -->
+    <textarea ng-model="body">
+    </textarea>
+	<p>{{showText}}</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>$cacheFactory()</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		// $cacheFactory() 缓存操作
+		m1.controller("CacheController", ["$scope", "$cacheFactory", "$log", function ($scope, $cacheFactory, $log) {
+
+			// $log.log()、$log.wran()、$log.info()
+			$log.error("hello");
+
+			// {capacity: 2} 限定缓存的长度
+			var cache = $cacheFactory("myCache", {capacity: 2});
+
+			cache.put("name", "hello");
+			cache.put("age", "20");
+			cache.put('job', 'it');
+
+			// 打印缓存信息
+			console.log(cache.info());
+			console.log(cache.get("name"));
+			// 删除
+			cache.remove("name");
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+
+<div ng-controller="CacheController">
+
+</div>
+
+</body>
+</html>
