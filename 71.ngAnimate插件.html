@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>运动插件</title>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-animate.min.js"></script>
+	<style>
+		.box { width: 200px; height: 200px; background: red; transition: 1s all; }
+
+		/* 定义样式实现动画效果
+		    有 if,view,repeat,include,switch 支持
+		 */
+
+		.box.ng-enter { opacity: 0; }
+
+		.box.ng-enter-active { opacity: 1; }
+
+		.box.ng-leave { opacity: 1; }
+
+		.box.ng-leave-active { opacity: 0; }
+	</style>
+	<script>
+		var m1 = angular.module("myApp", ["ngAnimate"]);
+		m1.controller("Aaa", ["$scope", function ($scope) {
+
+			$scope.bBtn = true;
+
+		}]);
+	</script>
+</head>
+
+<body>
+<div ng-controller="Aaa">
+	<input type="checkbox" ng-model="bBtn">
+	<div ng-if="bBtn" class="box"></div>
+</div>
+</body>
+</html>

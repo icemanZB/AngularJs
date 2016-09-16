@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>路由插件</title>
+	<!-- 当 angular 的版本和插件的版本有差异的时候，会报错 -->
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-route.min.js"></script>
+	<script>
+		// ngRoute 引入插件模块
+		var m1 = angular.module("myApp", ["ngRoute"]);
+
+		// 初始化配置
+		m1.config(["$routeProvider", function ($routeProvider) {
+
+			$routeProvider
+					// 第一个参数是对应路由的地址，第二个就是配置
+					// :num 接受参数
+					.when("/aaa/:num", {
+						// templateUrl 也是可以
+						template  : '<p>首页的内容</p>{{name}}',
+						controller: "Aaa"
+					})
+					.when("/bbb", {
+						template  : '<p>学员的内容</p>{{name}}',
+						controller: "Bbb"
+					})
+					.when("/ccc", {
+						template  : '<p>课程的内容</p>{{name}}',
+						controller: "Ccc"
+					})
+					// 一上来显示的是哪个路由页面( 默认的处理：初始化的时候，路由出错的时候 )
+					.otherwise({
+						redirectTo: "/aaa"
+					});
+
+		}]);
+
+		m1.run(["$rootScope", function ($rootScope) {
+
+			// 绑定事件
+			// $routeChangeStart 事件名称，路由在切换之前触发的事件
+			// $routeChangeSuccess / $routeChangeError
+			$rootScope.$on("$routeChangeStart", function (event, current, pre) {
+				console.log(event);  // angular 中的 event
+				console.log(current);
+				console.log(pre);
+			});
+
+		}]);
+
+		// $routeParams 服务，是接受 $location.path("aaa/123") 中的 123
+		m1.controller("Aaa", ["$scope", "$location", "$routeParams", function ($scope, $location, $routeParams) {
+
+			$scope.name = "hello";
+			// 使用 $location.path() 进行操作
+			$scope.$location = $location;
+			// 参数接受
+			console.log($routeParams);
+
+		}]);
+		m1.controller("Bbb", ["$scope", function ($scope) {
+
+			$scope.name = "hi";
+
+		}]);
+		m1.controller("Ccc", ["$scope", function ($scope) {
+
+			$scope.name = "你好";
+
+		}]);
+	</script>
+</head>
+
+<body>
+<div ng-controller="Aaa">
+	<!-- <a href="#aaa"></a> hash 跳转 -->
+	<a href="" ng-click="$location.path('aaa/123')">首页</a>
+	<a href="" ng-click="$location.path('bbb')">学员</a>
+	<a href="" ng-click="$location.path('aaa/456')">课程</a>
+	<!-- ng-view 是和 ngRoute 插件配套的，就是切换的主体部分 -->
+	<div ng-view></div>
+</div>
+</body>
+</html>

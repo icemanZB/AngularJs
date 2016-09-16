@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>ngResource插件</title>
+	<script src="js/jquery-2.0.3.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-route.min.js"></script>
+	<script src="js/angular-resource.min.js"></script>
+
+	<script>
+
+		var m1 = angular.module("myApp", ["ngRoute", "ngResource"]);
+
+		m1.config(["$routeProvider", function ($routeProvider) {
+
+			$routeProvider
+					.when("/DebugData/:name", {
+						template  : '<div>{{data[0].name}}</div><div>{{data[0].age}}</div><div>{{data[0].job}}</div>',
+						controller: "Aaa"
+					})
+					.otherwise({
+						redirectTo: "/DebugData/zhangsan"
+					});
+
+		}]);
+
+		m1.controller("Aaa", ["$scope", "$resource", "$location", "$routeParams", function ($scope, $resource, $location, $routeParams) {
+
+			$scope.$location = $location;
+
+			console.log($routeParams);
+
+			if ($routeParams.name) {
+
+				// var obj = $resource(":name.json",{},{});  => obj.get({name:list},function(){},function(){}) 第二个就是对前面资源进行操作，最后一项就是配置信息
+
+				var objRe = $resource("DebugData/"+$routeParams.name + ".json", {}, {});
+
+				$scope.data = objRe.query();
+
+			}
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Aaa">
+	<input type="button" value="张三" ng-click="$location.path('DebugData/zhangsan')">
+	<input type="button" value="李四" ng-click="$location.path('DebugData/list')">
+	<div ng-view>
+	</div>
+</div>
+</body>
+</html>

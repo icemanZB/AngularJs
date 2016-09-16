@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>事件传播方式</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp",[]);
+		m1.controller("Aaa",["$scope",function($scope){
+
+			$scope.count = 0;
+
+			$scope.$on("myEvent",function(event){
+
+				$scope.count++;
+
+				// console.log( event.targetScope == event.currentScope );
+
+				// console.log(event.name);
+
+				event.stopPropagation();
+
+			});
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Aaa">
+	{{count}}
+	<!--
+	    ng-click="count = count + 1" 默认情况下不会影响到父级和子集的变量
+	    $emit 向上传播、$broadcast 向下传播
+	 -->
+	<div ng-controller="Aaa" ng-click="$emit('myEvent')">
+		{{count}}
+		<div ng-controller="Aaa">
+			{{count}}
+		</div>
+	</div>
+</div>
+</body>
+</html>

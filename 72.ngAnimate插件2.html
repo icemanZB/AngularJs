@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>运动插件</title>
+	<script src="js/jquery-2.0.3.min.js"></script>
+	<script src="js/angular.min.js"></script>
+	<script src="js/angular-animate.min.js"></script>
+	<style>
+		.box { width: 200px; height: 200px; background: red; }
+	</style>
+	<script>
+
+		var m1 = angular.module("myApp", ["ngAnimate"]);
+
+		m1.animation(".box", function () {
+			return {
+				addClass   : function (element, sClass, done) {
+					// console.log(element);
+					// console.log(sClass);
+					// console.log(done);
+					$(element).animate({width: 0, height: 0}, 1000, done);
+				},
+				removeClass: function (element, sClass, done) {
+					// 由于是动态创建的，所以之前的样式实际是被销毁了
+					$(element).css({width: 0, height: 0});
+					$(element).animate({width: 200, height: 200}, 1000, done);
+				}
+			};
+		});
+
+		m1.controller("Aaa", ["$scope", function ($scope) {
+
+			$scope.bBtn = true;
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Aaa">
+	<input type="checkbox" ng-model="bBtn">
+	<!--<div ng-if="bBtn" class="box"></div>-->
+	<div ng-show="bBtn" class="box"></div>
+</div>
+</body>
+</html>
