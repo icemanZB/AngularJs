@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>provider()</title>
+
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+
+		m1.provider("myService", function () {
+
+			return {
+				name: "hello",
+				$get: function () {
+					var _this = this;
+					return {
+						name: _this.name,
+						show: function () {
+							return _this.name + ":angular";
+						}
+					};
+
+				}
+			};
+
+		});
+
+		m1.config(["myServiceProvider", function (myServiceProvider) {
+
+			console.log(myServiceProvider);
+
+			myServiceProvider.name = "hi";
+
+		}]);
+
+		// 自定义服务写在内部服务的后面
+		m1.controller("Factory", ["$scope", "myService", function ($scope, myService) {
+
+			console.log(myService.show());
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Factory">
+
+</div>
+</body>
+</html>

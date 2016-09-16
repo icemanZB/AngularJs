@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>factory()</title>
+
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+
+
+		m1.provider("myRandomNum", function () {
+
+			return {
+				bolInt: false,
+				int   : function (argBol) {
+					this.bolInt = !!argBol;
+				},
+				$get  : function () {
+					var _this = this;
+					return function (num1, num2) {
+						return _this.bolInt ? Math.round(Math.random() * (num2 - num1)) + num1 : Math.random() * (num2 - num1) + num1;
+					};
+				}
+			};
+
+		});
+
+		m1.config(["myRandomNumProvider", function (myRandomNumProvider) {
+
+			// true 就是取整
+			myRandomNumProvider.int(false);
+
+		}]);
+
+		// 自定义服务写在内部服务的后面
+		m1.controller("Factory", ["$scope", "myRandomNum", function ($scope, myRandomNum) {
+
+			console.log(myRandomNum(-3, 6));
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Factory">
+
+</div>
+</body>
+</html>

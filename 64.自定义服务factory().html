@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>factory()</title>
+
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+
+		// myService 服务的名字，可以是回掉函数或者数组的形式
+		// 自定义服务不要使用 "$"
+		// factory() 是不能初始化配置的，而 provider() 是可以的，所以 provider() 方式比较好
+		m1.factory("myService", function () {
+			return {
+				name: "hello",
+				show: function () {
+					return this.name + ":angular";
+				}
+			};
+
+		});
+
+		// 自定义服务写在内部服务的后面
+		m1.controller("Factory", ["$scope", "myService", function ($scope, myService) {
+
+			console.log(myService.show());
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Factory">
+
+</div>
+</body>
+</html>

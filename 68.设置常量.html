@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>设置常量</title>
+
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+
+		// constant 是可以在 config() 中获取的，value 是不可以的
+		m1.constant("myService", "hello angular");
+		// m1.value("myService", "hello angular");
+		// 这里配置不需要加上 Provider
+		m1.config(["myService", function (myService) {
+			console.log(myService);
+		}]);
+
+		m1.controller("Constant", ["$scope", "myService", function ($scope, myService) {
+
+			console.log(myService);
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Constant">
+
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>$logProvider</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp", []);
+		// 服务的相关初始配置操作
+		m1.config(["$logProvider", function ($logProvider) {
+
+			// true 默认是可以 debug 操作， false 是不可以
+			$logProvider.debugEnabled(false);
+
+		}]);
+
+		m1.controller("Provider", ["$scope", "$log", function ($scope, $log) {
+
+			$log.debug("hello"); // 这里就显示不出来了
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Provider">
+
+</div>
+</body>
+</html>

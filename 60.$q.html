@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>$q</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+		var m1 = angular.module("myApp", []);
+		// 与 jQuery.Deferred() 类似，没有 done()、faile()
+		m1.controller("Defer", ["$scope", "$q", function ($scope, $q) {
+
+			var dfd = $q.defer();
+
+			function show() {
+				setTimeout(function () {
+
+					// dfd.resolve(); 成功对应的回掉
+
+					dfd.reject();  // 失败对应的回掉
+
+				}, 2000);
+
+				return dfd.promise;
+			}
+
+			show().then(function () {
+				console.log("成功");
+			}, function () {
+				console.log("失败");
+			});
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+
+<div ng-controller="Defer">
+
+</div>
+
+</body>
+</html>

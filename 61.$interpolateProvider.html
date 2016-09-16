@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html ng-app="myApp">
+<head>
+	<meta charset="utf-8">
+	<title>$interpolateProvider</title>
+	<script src="js/angular.min.js"></script>
+	<script>
+
+		var m1 = angular.module("myApp",[]);
+		// 服务的相关初始配置操作
+		// $interpolate + Provider 服务所对应的供应商，并不是所有的服务都有供应商
+		// 位置一定是在 config() 下，加在其他地方是不会起作用的
+		m1.config(["$interpolateProvider",function($interpolateProvider){
+
+			// 改变表达式服务的符号
+			$interpolateProvider.startSymbol("@@");
+			$interpolateProvider.endSymbol("@@");
+
+		}]);
+
+		m1.controller("Provider",["$scope","$interpolate",function($scope,$interpolate){
+
+			$scope.$watch("body",function(newBody){
+
+				if(newBody){
+					var temp = $interpolate(newBody);
+					$scope.showText = temp({ name : $scope.name });
+
+				}
+
+			});
+
+		}]);
+
+	</script>
+</head>
+
+<body>
+<div ng-controller="Provider">
+	<input type="text" ng-model="name">
+    <textarea ng-model="body">
+    </textarea>
+	<!-- <p>{{showText}}</p> 原始的写法 -->
+	<p>@@showText@@</p>
+</div>
+</body>
+</html>
