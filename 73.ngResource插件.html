@@ -37,6 +37,7 @@
 
 				var objRe = $resource("DebugData/"+$routeParams.name + ".json", {}, {});
 
+				// query() 是得到一个集合
 				$scope.data = objRe.query();
 
 			}
