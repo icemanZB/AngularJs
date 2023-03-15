@@ -9,7 +9,7 @@ http://www.bootcdn.cn/angular.js/1.3.0-beta.13/
 
 https://angularjs.org/ angularJS 官方网站
 
-http://www.angularjs.cn/ angularJS中文社区  iceman qp56796189
+http://www.angularjs.cn/ angularJS中文社区  iceman
 
 https://www.github.com/angular/  github 上的官方主页
 
